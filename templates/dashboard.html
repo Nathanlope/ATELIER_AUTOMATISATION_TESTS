@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Tests API ipify</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #444; padding: 6px 10px; text-align: left; }
+    .PASS { color: #4caf50; }
+    .FAIL { color: #f44336; }
+  </style>
+</head>
+<body>
+  <h1>Dashboard — Tests API ipify</h1>
+
+  {% if last_run %}
+    <h2>Dernier run — {{ last_run.timestamp }}</h2>
+    <p>Passed: {{ last_run.summary.passed }} | Failed: {{ last_run.summary.failed }}
+       | Taux d'erreur: {{ last_run.summary.error_rate }}
+       | Latence avg: {{ last_run.summary.latency_avg_ms }} ms
+       | Latence p95: {{ last_run.summary.latency_p95_ms }} ms</p>
+    <table>
+      <tr><th>Test</th><th>Statut</th><th>Latence (ms)</th><th>Détails</th></tr>
+      {% for t in last_run.tests %}
+      <tr>
+        <td>{{ t.name }}</td>
+        <td class="{{ t.status }}">{{ t.status }}</td>
+        <td>{{ t.latency_ms }}</td>
+        <td>{{ t.details or "" }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Aucun run pour l'instant. Va sur <a href="/run">/run</a> pour en lancer un.</p>
+  {% endif %}
+
+  <h2>Historique</h2>
+  <table>
+    <tr><th>Timestamp</th><th>Passed</th><th>Failed</th><th>Latence avg</th></tr>
+    {% for r in runs %}
+    <tr>
+      <td>{{ r.timestamp }}</td>
+      <td>{{ r.summary.passed }}</td>
+      <td>{{ r.summary.failed }}</td>
+      <td>{{ r.summary.latency_avg_ms }} ms</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
