@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Atelier — Automatisation des tests d’API publiques (Python/Flask + PythonAnywhere)</title>
+  <title>Atelier — Automatisation des tests d'API publiques (Python/Flask + PythonAnywhere)</title>
   <style>
     :root{
       --bg:#0b1020;
@@ -164,6 +164,7 @@
 </head>
 
 <body>
+{% include "nav.html" %}
 <header>
   <div class="row">
     <span class="pill">Atelier M1 — Tests API</span>
@@ -171,7 +172,7 @@
     <span class="pill warn">PythonAnywhere</span>
     <span class="pill">Testing as Code</span>
   </div>
-  <h1>Atelier — Automatisation des tests d’API publiques</h1>
+  <h1>Atelier — Automatisation des tests d'API publiques</h1>
   <p class="subtitle">
     Vous allez choisir une API dans la liste <a href="https://github.com/public-apis/public-apis" target="_blank" rel="noopener">public-apis</a>
     et construire une mini-solution de tests automatisés déployée sur PythonAnywhere : exécution planifiée, métriques QoS et tableau de résultats.
@@ -203,11 +204,11 @@
       <h2>2) Scénario pédagogique (ce que vous allez faire)</h2>
       <ol>
         <li><b>Choisir une API</b> (idéalement sans clé) et documenter le contrat (endpoints, paramètres, codes, schéma).</li>
-        <li><b>Écrire des tests “as code”</b> : assertions sur le statut HTTP, le JSON, les champs et types attendus.</li>
-        <li><b>Ajouter de la robustesse</b> : timeout, retry simple, gestion 429/5xx, validation d’erreurs attendues.</li>
-        <li><b>Mesurer la QoS</b> : latence (avg/p95), taux d’erreur, disponibilité du dernier run.</li>
+        <li><b>Écrire des tests "as code"</b> : assertions sur le statut HTTP, le JSON, les champs et types attendus.</li>
+        <li><b>Ajouter de la robustesse</b> : timeout, retry simple, gestion 429/5xx, validation d'erreurs attendues.</li>
+        <li><b>Mesurer la QoS</b> : latence (avg/p95), taux d'erreur, disponibilité du dernier run.</li>
         <li><b>Déployer sur PythonAnywhere</b> et exposer un dashboard lisible.</li>
-        <li><b>Planifier l’exécution</b> (tâche planifiée) et conserver l’historique (SQLite).</li>
+        <li><b>Planifier l'exécution</b> (tâche planifiée) et conserver l'historique (SQLite).</li>
       </ol>
 
       <div class="notice">
@@ -247,13 +248,13 @@ project/
       <h2>4) Plan de tests attendu</h2>
       <div class="twocol">
         <div>
-          <h3>A. Tests “Contrat” (fonctionnels)</h3>
+          <h3>A. Tests "Contrat" (fonctionnels)</h3>
           <ul>
             <li>HTTP 200/204 attendu</li>
             <li><code>Content-Type</code> JSON</li>
             <li>Champs obligatoires présents</li>
             <li>Types (string/int/float/bool/list/object)</li>
-            <li>Cas d’entrée invalide → code 400/404/… attendu</li>
+            <li>Cas d'entrée invalide → code 400/404/… attendu</li>
           </ul>
         </div>
         <div>
@@ -262,7 +263,7 @@ project/
             <li>Timeout (ex. 3s) + 1 retry max</li>
             <li>Gestion 429 (rate limit) : backoff / attente</li>
             <li>Latence : avg + p95 sur N appels</li>
-            <li>Taux d’erreur (4xx/5xx) + disponibilité</li>
+            <li>Taux d'erreur (4xx/5xx) + disponibilité</li>
           </ul>
         </div>
       </div>
@@ -296,12 +297,12 @@ project/
           </tr>
           <tr>
             <td>QoS</td>
-            <td>Latence + taux d’erreur + interprétation</td>
+            <td>Latence + taux d'erreur + interprétation</td>
             <td><b>4</b></td>
           </tr>
           <tr>
             <td>Restitution</td>
-            <td>Dashboard clair + historique + “dernier run”</td>
+            <td>Dashboard clair + historique + "dernier run"</td>
             <td><b>4</b></td>
           </tr>
         </tbody>
@@ -315,16 +316,16 @@ project/
 
     <!-- RIGHT COLUMN -->
     <aside class="card">
-      <h2>Short-list d’APIs (exemples) : <a href="https://github.com/public-apis/public-apis" target="_blank" rel="noopener">public-apis</a></h2>
+      <h2>Short-list d'APIs (exemples) : <a href="https://github.com/public-apis/public-apis" target="_blank" rel="noopener">public-apis</a></h2>
       <p class="muted small">
-        Choisissez une API différente de vos camarades. Préférez “no auth” pour éviter les difficultés.
+        Choisissez une API différente de vos camarades. Préférez "no auth" pour éviter les difficultés.
       </p>
 
       <table class="table">
         <thead>
           <tr>
             <th>API</th>
-            <th>Exemple d’endpoint</th>
+            <th>Exemple d'endpoint</th>
           </tr>
         </thead>
         <tbody>
@@ -363,7 +364,7 @@ project/
 
       <div class="hr"></div>
 
-      <h2>Fiche de choix d’API (à remplir dans Github)</h2>
+      <h2>Fiche de choix d'API (à remplir dans Github)</h2>
       <p class="muted small">
         Complétez le contenu du fichier <code>API_CHOICE.md</code> dans votre dépôt Github.
       </p>
@@ -398,10 +399,10 @@ project/
 
       <div class="hr"></div>
 
-      <h2>Rappels “bonnes pratiques”</h2>
+      <h2>Rappels "bonnes pratiques"</h2>
       <ul>
         <li>Ne pas hardcoder une clé API (utiliser les Secrets Github).</li>
-        <li>Limiter la charge (ne pas spammer l’API).</li>
+        <li>Limiter la charge (ne pas spammer l'API).</li>
         <li>Gérer proprement les codes <code>429</code>, <code>5xx</code>, timeouts.</li>
         <li>Tracer les résultats (timestamp, latence, statut, message) dans une base de données.</li>
       </ul>
@@ -416,7 +417,7 @@ project/
 
       <div class="hr"></div>
 
-      <h2>Mini aide : structure d’un run</h2>
+      <h2>Mini aide : structure d'un run</h2>
       <pre>
 {
   "api": "Agify",
@@ -441,7 +442,7 @@ project/
 <div class="footer">
   <div class="hr"></div>
   <div>
-    <p><b>Rappel :</b> préférez les API “no auth” pour simplifier votre solution. Dans le cas contraire pensez à mettre vos clés dans des variables d’environnement.
+    <p><b>Rappel :</b> préférez les API "no auth" pour simplifier votre solution. Dans le cas contraire pensez à mettre vos clés dans des variables d'environnement.
     Prévoyez un mécanisme anti-spam (limite de runs) et un timeout strict (3–5s).</p>
   </div>
 </div>
