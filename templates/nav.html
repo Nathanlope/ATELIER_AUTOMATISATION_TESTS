@@ -1,0 +1,32 @@
+<style>
+  .navbar {
+    display: flex;
+    gap: 10px;
+    padding: 12px 20px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    font-family: sans-serif;
+  }
+  .navbar a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .navbar a:hover {
+    background: #333;
+    color: #fff;
+  }
+  .navbar a.active {
+    background: #4caf50;
+    color: #111;
+    font-weight: bold;
+  }
+</style>
+<div class="navbar">
+  <a href="{{ url_for('consignes') }}" class="{{ 'active' if active == 'home' else '' }}">🏠 Accueil</a>
+  <a href="{{ url_for('run') }}" class="{{ 'active' if active == 'run' else '' }}">▶️ Lancer un run</a>
+  <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active == 'dashboard' else '' }}">📊 Dashboard</a>
+  <a href="{{ url_for('health') }}" class="{{ 'active' if active == 'health' else '' }}">💚 Health</a>
+</div>
