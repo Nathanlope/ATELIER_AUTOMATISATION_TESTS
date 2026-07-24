@@ -1,0 +1,13 @@
+name: Scheduled API Test Run
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # toutes les 15 minutes
+  workflow_dispatch:          # permet aussi de le lancer manuellement depuis l'onglet Actions
+
+jobs:
+  trigger-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call /run endpoint
+        run: curl -s https://nxthanlps.pythonanywhere.com/run
