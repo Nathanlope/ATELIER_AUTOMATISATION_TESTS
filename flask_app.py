@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify
 from tester.runner import run_all
-import storage
+from tester import storage
 
 app = Flask(__name__)
 storage.init_db()
@@ -8,7 +8,7 @@ storage.init_db()
 
 @app.get("/")
 def consignes():
-    return render_template('consignes.html')
+    return render_template('consignes.html', active="home")
 
 
 @app.get("/run")
@@ -22,7 +22,7 @@ def run():
 def dashboard():
     runs = storage.list_runs(limit=20)
     last_run = runs[0] if runs else None
-    return render_template("dashboard.html", runs=runs, last_run=last_run)
+    return render_template("dashboard.html", runs=runs, last_run=last_run, active="dashboard")
 
 
 @app.get("/health")
